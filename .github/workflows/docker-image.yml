@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build -t my_nginx:${{ github.sha }} .
+    - name: Push the Docker image
+      run: |
+        docker tag my_nginx:${{ github.sha }} <your-dockerhub-username>/my_nginx:${{ github.sha }}
+        echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        docker push <your-dockerhub-username>/my_nginx:${{ github.sha }}
