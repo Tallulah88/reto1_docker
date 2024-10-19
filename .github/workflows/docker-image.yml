@@ -16,6 +16,6 @@ jobs:
       run: docker build -t my_nginx:${{ github.sha }} .
     - name: Push the Docker image
       run: |
-        docker tag my_nginx:${{ github.sha }} <your-dockerhub-username>/my_nginx:${{ github.sha }}
+        docker tag my_nginx:${{ github.sha }} fk348fkj530/my_nginx:${{ github.sha }}
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-        docker push <your-dockerhub-username>/my_nginx:${{ github.sha }}
+        docker push fk348fkj530/my_nginx:${{ github.sha }}
